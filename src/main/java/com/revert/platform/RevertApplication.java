@@ -10,7 +10,6 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication(scanBasePackages = {"com.revert"})
-//@MapperScan(basePackages = {"com.revert"})
 @EnableScheduling
 public class RevertApplication extends SpringBootServletInitializer {
 
