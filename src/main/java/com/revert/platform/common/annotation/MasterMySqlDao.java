@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME) /*注解保留时间*/
 @Target(ElementType.TYPE) /*注解作用目标*/
-public @interface MasterMybatisDao {
+public @interface MasterMySqlDao {
 }
