@@ -3,7 +3,7 @@ package com.revert.platform.common.config.datasources;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.github.pagehelper.PageHelper;
-import com.revert.platform.common.annotation.MasterMybatisDao;
+import com.revert.platform.common.annotation.MasterMySqlDao;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@MapperScan(basePackages = "com.revert", sqlSessionFactoryRef = "masterSqlSessionFactory", annotationClass = MasterMybatisDao.class)
+@MapperScan(basePackages = "com.revert", sqlSessionFactoryRef = "masterSqlSessionFactory", annotationClass = MasterMySqlDao.class)
 public class MasterDataSourceConfig {
 
     @Value("${platform.dataSource.type}")
@@ -65,10 +65,9 @@ public class MasterDataSourceConfig {
         sqlSessionFactoryBean.setDataSource(masterDataSource());
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(
-                resolver.getResources("classpath*:com/revert/"+datasourceType+"/mapper/**/impI/*Mapper.xml")
+                resolver.getResources("classpath*:com/revert/"+datasourceType+"/**/mapper/impI/*Mapper.xml")
         );
         sqlSessionFactoryBean.setPlugins(new Interceptor[]{pagePlugin()});
-
         return sqlSessionFactoryBean.getObject();
     }
 

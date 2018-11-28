@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.revert.platform.db.mapper.DBTableMapper">
+  <resultMap id="BaseResultMap" type="com.revert.platform.db.model.DBTable">
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TABLE_NAME, TABLE_ROWS, TABLE_COMMENT, CREATE_TIME
+  </sql>
+  <sql id="Base_Alias_Column_List">
+     TABLE_NAME as tableName, TABLE_ROWS as tableRows, TABLE_COMMENT as tableComment, CREATE_TIME as createTime
+  </sql>
+  <select id="selectByProperties" parameterType="com.revert.platform.db.model.DBTable" resultMap="BaseResultMap">
+      SELECT
+          <include refid="Base_Alias_Column_List"/>
+      FROM
+          information_schema. TABLES
+      WHERE
+          table_schema = (select database())
+      AND table_type = 'base table'
+  </select>
+</mapper>
