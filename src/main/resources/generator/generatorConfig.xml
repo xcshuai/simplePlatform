@@ -24,6 +24,7 @@
 
     <!-- 引入配置文件 -->
     <properties resource="./generator/generate.properties"/>
+
     <!-- 在 pom.xml 插件（plugin）中添加了mysql-connerctor 就不需要下面的classPathEntry -->
     <!--     <classPathEntry location="D:\xiecong\mavenRepository\mysql\mysql-connector-java\5.1.42\mysql-connector-java-5.1.42.jar"/>  -->
 
@@ -42,7 +43,7 @@
         <!-- 数据库地址 -->
         <jdbcConnection driverClass="${driverClass}"
                         connectionURL="${connectionURL}"
-                        userId="${userName}"
+                        userId="${userId}"
                         password="${password}">
         </jdbcConnection>
 
@@ -72,13 +73,14 @@
 
         <!-- 注：如果 *Mapper.java 只生成了 insert 请检查 数据库中的表 是否存在主键 -->
 
-        <table tableName="${tableName}"
-               domainObjectName="${domainObjectName}"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false"
-               enableSelectByExample="false"
-               selectByExampleQueryId="false" >
+        <table
+                tableName="${tableName}"
+                domainObjectName="${domainObjectName}"
+                enableCountByExample="false"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="false"
+                selectByExampleQueryId="false" >
             <property name="useActualColumnNames" value="false"/>
         </table>
         <!--<table tableName="sys_t_resource" domainObjectName="Resource" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" >-->

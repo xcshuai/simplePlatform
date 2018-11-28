@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class UsefulPage<T> implements Serializable {
 
+    private static final long serialVersionUID = 5901700519675315228L;
     /**
      * 页码，从1开始
      */

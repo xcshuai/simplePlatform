@@ -6,8 +6,9 @@ import java.io.Serializable;
 
 @Data
 public class BaseEntity implements Serializable {
-    private Long id;
+    private static final long serialVersionUID = -1879869989975645868L;
 
+    private Long id;
 
     private Integer pageNum = 1;
 

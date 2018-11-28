@@ -14,6 +14,12 @@ public class ErrorInfo implements Serializable {
     public final static String CODE_SUCCESS = "200";
     public final static String CODE_ERROR = "500";
 
+    /**
+     * 消息message
+     *
+     */
+    public final static String MSG_SUCCESS = "ok";
+    public final static String MSG_ERROR = "系统异常";
 
 
 
