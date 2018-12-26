@@ -1,26 +1,34 @@
 package com.revert.platform.common.aop;
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.log4j.Log4j2;
-import lombok.val;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 /**
  * controller 方法 日志记录
  */
-@Log4j2
-@Aspect /** 声明此类是 切面*/
+@Aspect
+/** 声明此类是 切面*/
 @Component
 public class WebLogAspect {
-
+    /**
+     * 日志对象
+     */
+    protected Logger log = LoggerFactory.getLogger(getClass());
     //ThreadLocal保证不受其他线程影响，用于记录接口响应时间
     private static ThreadLocal<Long> threadLocal = new ThreadLocal<Long>();
 
@@ -31,9 +39,17 @@ public class WebLogAspect {
     public void doBefore(JoinPoint joinPoint){
         MethodSignature methodSignature = ((MethodSignature)joinPoint.getSignature());
         String doMethod = methodSignature.getDeclaringType().toString()+"."+methodSignature.getMethod().getName();
-        String paramsNames[] = methodSignature.getParameterNames();
-        Object paramsValues[] = joinPoint.getArgs();
-        log.info("方法:{},参数名称:{},参数值:{}",doMethod,paramsNames,paramsValues);
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        Enumeration<String> paramNamesEnu = request.getParameterNames();
+        List<String> paramValues = new ArrayList<>();
+        List<String> paramNames = new ArrayList<>();
+        while(paramNamesEnu.hasMoreElements()){
+            String key = paramNamesEnu.nextElement();
+            paramValues.add(request.getParameter(key));
+            paramNames.add(key);
+        }
+        log.info("方法:{},参数名称:{},参数值:{}",doMethod,paramNames,paramValues);
         threadLocal.set(System.currentTimeMillis());
     }
 

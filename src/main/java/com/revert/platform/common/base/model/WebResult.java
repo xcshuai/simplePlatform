@@ -1,7 +1,6 @@
 package com.revert.platform.common.base.model;
 
-import com.revert.platform.common.constant.ErrorInfo;
-import lombok.Data;
+import com.revert.platform.common.constant.ResultInfo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,11 +12,11 @@ public class WebResult implements Serializable {
 
     @Getter
     @Setter
-    private String code = ErrorInfo.CODE_SUCCESS;
+    private String code = ResultInfo.CODE_SUCCESS;
 
     @Getter
     @Setter
-    private String message = ErrorInfo.MSG_SUCCESS;
+    private String message = ResultInfo.MSG_SUCCESS;
 
     @Getter
     @Setter

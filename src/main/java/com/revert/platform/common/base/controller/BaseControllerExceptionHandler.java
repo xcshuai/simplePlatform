@@ -1,7 +1,7 @@
 package com.revert.platform.common.base.controller;
 
 import com.revert.platform.common.base.model.WebResult;
-import com.revert.platform.common.constant.ErrorInfo;
+import com.revert.platform.common.constant.ResultInfo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,8 +20,8 @@ public class BaseControllerExceptionHandler {
     public WebResult handleException(Exception e){
         log.error(e);
         WebResult result = new WebResult()
-                .code(ErrorInfo.CODE_ERROR)
-                .message(ErrorInfo.MSG_ERROR);
+                .code(ResultInfo.CODE_ERROR)
+                .message(ResultInfo.MSG_ERROR);
         return result;
     }
 

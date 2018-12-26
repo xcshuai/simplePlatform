@@ -7,7 +7,8 @@
 <configuration status="warn" monitorInterval="30">
     <Properties>
         <Property name="projectName">revert</Property>
-        <Property name="logPath">C:/revert/logs/${projectName}</Property>
+        <!--<Property name="logPath">/root/logs/${projectName}</Property>-->
+        <Property name="logPath">/root/logs/${projectName}</Property>
     </Properties>
     <!--先定义所有的appender-->
     <appenders>
