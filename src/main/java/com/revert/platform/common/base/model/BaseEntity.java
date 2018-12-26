@@ -41,10 +41,28 @@ public class BaseEntity implements Serializable {
     @JsonIgnore
     private String addSql;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Integer deleted;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Integer status;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Date createDate;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Long createBy;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Date updateDate;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Long updateBy;
+
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private Integer display;
 
 
 }

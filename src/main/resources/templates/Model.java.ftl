@@ -9,13 +9,13 @@ import lombok.Data;
 public class ${className}Model extends BaseEntity {
 
 <#if (columns?exists) && (columns?size>0)>
-    <#list columns as column>
-        <#if (column.javaType == "Date")>
-            @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-        </#if>
-        private ${column.javaType} ${column.columnName};
+<#list columns as column>
+    <#if (column.javaType == "Date")>
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    </#if>
+    private ${column.javaType} ${column.aliasName};
 
-    </#list>
+</#list>
 </#if>
 
 }

@@ -10,13 +10,11 @@ import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -54,9 +52,14 @@ public class DBTableService extends BaseService<DBTableMapper,DBTable> {
                 String templateName = null;
                 Map<String, Object> data = new HashMap<>();
                 data.put("packageVal",dbTable.getPackageVal());
-                data.put("oldColumns",setColumnJavaName(dbTable.getListColumns()));
+                List<Columns> list = new ArrayList<>();
+                for(Columns c : dbTable.getListColumns()){
+                    list.add(c);
+                }
+                data.put("oldColumns",setColumnJavaName(list));
                 data.put("columns",setColumnJavaType(dbTable.getListColumns()));
                 data.put("className",val.get("tableName"));
+                data.put("lowerClassName",DBCreateFileUtil.toUpperCaseTableName(val.get("tableName"),2));
                 data.put("tableName",dbTable.getTableName());
 
                 tagetFile = new File(val.get("filePath"));
@@ -76,6 +79,11 @@ public class DBTableService extends BaseService<DBTableMapper,DBTable> {
 
     public List<Columns> setColumnJavaName(List<Columns> listColumns){
         listColumns.forEach(item ->{
+            if("int".equals(item.getDataType())){
+                item.setDataType("Integer");
+            }else if("datetime".equals(item.getDataType())){
+                item.setDataType("Date");
+            }
             item.setDataType(item.getDataType().toUpperCase());
             item.setAliasName(DBCreateFileUtil.toUpperCaseTableName(item.getColumnName(),2));
         });
@@ -83,7 +91,9 @@ public class DBTableService extends BaseService<DBTableMapper,DBTable> {
     }
 
     public List<Columns> setColumnJavaType(List<Columns> listColumns){
-        listColumns = listColumns.stream().filter(item -> !"id".equals(item.getColumnName()))
+        String as[] = {"id","deleted","status","create_date","create_by","update_date","update_by","display"};
+        List<String> filter = Arrays.asList(as);
+        listColumns = listColumns.stream().filter(item -> !filter.contains(item.getColumnName()))
                 .collect(Collectors.toList());
         listColumns.forEach(item ->{
             switch (item.getDataType().toLowerCase()){

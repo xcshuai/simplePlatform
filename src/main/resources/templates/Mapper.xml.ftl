@@ -2,38 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${packageVal}.mapper.${className}Mapper">
     <resultMap id="BaseResultMap" type="${packageVal}.model.${className}Model">
-    <#if (oldColumns?exists) && (oldColumns?size>0)>
-        <#list oldColumns as column>
-            <#if (column.columnName == "id")>
-                <id column="${column.columnName}" jdbcType="${column.dataType}" property="${column.aliasName}" />
-            <#else>
-                <result column="${column.columnName}" jdbcType="${column.dataType}" property="${column.aliasName}" />
-            </#if>
-        </#list>
+<#if (oldColumns?exists) && (oldColumns?size>0)>
+<#list oldColumns as column>
+    <#if (column.columnName == "id")>
+        <id column="${column.columnName}" jdbcType="${column.dataType}" property="${column.aliasName}" />
+    <#else>
+        <result column="${column.columnName}" jdbcType="${column.dataType}" property="${column.aliasName}" />
     </#if>
+</#list>
+</#if>
     </resultMap>
     <sql id="Base_Column_List">
-    <#if (oldColumns?exists) && (oldColumns?size>0)>
-        <#assign count = oldColumns?size/>
-        <#list oldColumns as column>
-            <#assign count = count - 1/>
-            ${column.columnName}<#if (count) gt 0>,</#if>
-        </#list>
-    </#if>
+<#if (oldColumns?exists) && (oldColumns?size>0)>
+    <#assign count = oldColumns?size/>
+    <#list oldColumns as column>
+        <#assign count = count - 1/>
+        ${column.columnName}<#if (count) gt 0>,</#if>
+    </#list>
+</#if>
     </sql>
     <sql id="Base_Column_List_Alis">
-        <#assign count = oldColumns?size/>
-        <#list oldColumns as column>
-            <#assign count = count - 1/>
-            ${className}.${column.columnName}<#if (count) gt 0>,</#if>
-        </#list>
+    <#assign count = oldColumns?size/>
+    <#list oldColumns as column>
+        <#assign count = count - 1/>
+        ${className}.${column.columnName}<#if (count) gt 0>,</#if>
+    </#list>
     </sql>
     <sql id="Base_Where_List_Alis">
-        <#list oldColumns as column>
-            <if test="${column.aliasName} != null">
-                AND ${className}.${column.columnName} = ${r"#{"}${column.aliasName}${r",jdbcType="}${column.dataType}${r"}"}
-            </if>
-        </#list>
+    <#list oldColumns as column>
+        <if test="${column.aliasName} != null">
+            AND ${className}.${column.columnName} = ${r"#{"}${column.aliasName}${r",jdbcType="}${column.dataType}${r"}"}
+        </if>
+    </#list>
     </sql>
     <select id="selectByProperties" resultMap="BaseResultMap" parameterType="${packageVal}.model.${className}Model" >
         select <include refid="Base_Column_List_Alis"/>
@@ -90,7 +90,7 @@
     <#list oldColumns as column>
         <#if (column.columnName != "id")>
             <if test="${column.aliasName} != null">
-                ${column.columnName} = ${r"#{"}${column.aliasName}${r",jdbcType="}${column.dataType},
+                ${column.columnName} = ${r"#{"}${column.aliasName}${r",jdbcType="}${column.dataType}${r"}"},
             </if>
         </#if>
     </#list>
@@ -103,7 +103,7 @@
         <#assign count = oldColumns?size/>
         <#list oldColumns as column>
             <#assign count = count - 1/>
-        ${column.columnName} = ${r"#{"}${column.aliasName}${r",jdbcType="}${column.dataType}<#if (count) gt 0>,</#if>
+        ${column.columnName} = ${r"#{"}${column.aliasName}${r",jdbcType="}${column.dataType}${r"}"}<#if (count) gt 0>,</#if>
         </#list>
         where id = ${r"#{id,jdbcType=BIGINT}"}
     </update>
