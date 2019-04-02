@@ -1,45 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="/plugs/jquery-ui/css/base/jquery-ui-1.9.2.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>layout 后台大布局 - Layui</title>
+  <link rel="stylesheet" href="/plugs/layui/css/layui.css">
+  <style>
+  	.layui-footer{
+  		left:0px !important;
+  	}
+  	.layui-body{
+  		left:0px !important;
+  	}
+  </style>
 </head>
-<body>
-    <h1>Hello World!</h1>
-    <button id="openDialog">打开弹框</button>
-    <!-- ui-dialog -->
-    <div id="dialog" title="Dialog Title" style="display: none">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
-    <script src="/plugs/jquery-ui/jquery-ui-1.9.2.min.js"></script>
-    <script>
-        $(function(){
-            // Link to open the dialog
-            $( "#openDialog" ).click(function( event ) {
-                $( "#dialog" ).dialog( "open" );
-                event.preventDefault();
-            });
-            $( "#dialog" ).dialog({
-                autoOpen: false,
-                width: 400,
-                buttons: [
-                    {
-                        text: "Ok",
-                        click: function() {
-                            $( this ).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: "Cancel",
-                        click: function() {
-                            $( this ).dialog( "close" );
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">layui 后台布局</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+    	<li class="layui-nav-item layui-this" id="welcome"><a href="#">首页</a></li>
+      <li class="layui-nav-item" id="userManger"><a href="#">用户管理</a></li>
+      <li class="layui-nav-item"><a href="">资源管理</a></li>
+      <li class="layui-nav-item"><a href="">讨论平台</a></li>
+    </ul>
+    <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          贤心
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="/login.html">退出</a></li>
+    </ul>
+  </div>
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <!--<div style="padding: 15px;">内容主体区域</div>-->
+    <iframe id="QianTao" style="display: block;height:700px;width:100%;margin-top:0px;" src="welcome.html"></iframe>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    © layui.com - 底部固定区域
+  </div>
+</div>
+<script src="/plugs/layui/layui.js"></script>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+});
+
+	$(function(){
+		$("#welcome").click(function(){
+			$("#QianTao").attr("src", "welcome.html");
+		})
+		$("#userManger").click(function(){
+			$("#QianTao").attr("src", "user.html");
+		})
+
+	});
+</script>
 </body>
 </html>
