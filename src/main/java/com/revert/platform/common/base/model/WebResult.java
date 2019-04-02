@@ -7,9 +7,9 @@ import java.io.Serializable;
 @Data
 public class WebResult implements Serializable {
 
-    private String code;
+    private String code = "2000";
 
-    private String message;
+    private String message = "ok";
 
     private Object data;
 

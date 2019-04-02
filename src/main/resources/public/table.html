@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bootstarp-table</title>
+    <!-- 引入bootstrap样式 -->
+    <link rel="stylesheet" href="/plugs/bootstarp/bootstrap.min-3.3.6.css">
+    <!--<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">-->
+    <!-- 引入bootstrap-table样式 -->
+    <link rel="stylesheet" href="/plugs/bootstarp/bootstrap-table.min-1.11.1.css">
+    <!--<link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">-->
+</head>
+<body>
+<table
+        id="table"
+        data-toolbar="#toolbar"
+        data-search="true"
+        data-show-refresh="true"
+        data-show-toggle="true"
+        data-show-pagination-switch="true"
+        data-pagination="true"
+        data-page-list="[10, 25, 50, 100, ALL]"
+        data-side-pagination="server"
+>
+</table>
+<!-- jquery -->
+<script src="/plugs/jquery/jquery-2.2.3.min.js"></script>
+<script src="/plugs/bootstarp/bootstrap-3.3.6.min.js"></script>
+<!--<script src="https://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+<!-- bootstrap-table.min.js -->
+<script src="/plugs/bootstarp/bootstrap-table-1.11.1.min.js"></script>
+<!--<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>-->
+<!-- 引入中文语言包 -->
+<script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script>
+        $('#table').bootstrapTable({
+            url: '/api/v1/demo/test',
+            pagination: true,
+            cache: false,
+            columns: [{
+                field: 'id',
+                title: 'Item ID'
+            }, {
+                field: 'name',
+                title: 'Item Name'
+            }, {
+                field: 'price',
+                title: 'Item Price'
+            }, ],
+            onLoadSuccess:function(data){
+                console.log("data",data)
+            },
+            responseHandler: function(res){
+                return {
+                    "total": "6000",//总页数
+                    "rows": res.data   //数据
+                };
+            }
+        })
+    </script>
+</body>
+</html>
