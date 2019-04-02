@@ -3,8 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="/plugs/jquery-ui/css/base/jquery-ui-1.9.2.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>Hello World!</h1>
+    <button id="openDialog">打开弹框</button>
+    <!-- ui-dialog -->
+    <div id="dialog" title="Dialog Title" style="display: none">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <script src="/plugs/jquery/jquery-1.8.3.min.js"></script>
+    <script src="/plugs/jquery-ui/jquery-ui-1.9.2.min.js"></script>
+    <script>
+        $(function(){
+            // Link to open the dialog
+            $( "#openDialog" ).click(function( event ) {
+                $( "#dialog" ).dialog( "open" );
+                event.preventDefault();
+            });
+            $( "#dialog" ).dialog({
+                autoOpen: false,
+                width: 400,
+                buttons: [
+                    {
+                        text: "Ok",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    },
+                    {
+                        text: "Cancel",
+                        click: function() {
+                            $( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
 </body>
 </html>
