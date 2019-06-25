@@ -3,6 +3,7 @@ package com.revert.platform.common.base.controller;
 import com.revert.platform.common.base.model.WebResult;
 import com.revert.platform.common.constant.StaticsData;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -24,7 +25,7 @@ public class BaseControllerExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     public WebResult handleException(Exception e){
-        log.error(e.getMessage());
+        log.error(ExceptionUtils.getStackTrace(e));
         return defaultResult;
     }
 
