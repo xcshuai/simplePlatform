@@ -1,6 +1,7 @@
 package com.revert.platform.common.aop;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,6 +22,7 @@ import java.util.List;
 /**
  * controller 方法 日志记录
  */
+@Log4j2
 @Aspect
 /** 声明此类是 切面*/
 @Component
@@ -28,7 +30,6 @@ public class WebLogAspect {
     /**
      * 日志对象
      */
-    protected Logger log = LoggerFactory.getLogger(getClass());
     //ThreadLocal保证不受其他线程影响，用于记录接口响应时间
     private static ThreadLocal<Long> threadLocal = new ThreadLocal<Long>();
 
